@@ -35,7 +35,7 @@ router.post("/login", passport.authenticate("local",
 });
 
 router.get('/register',function(req,res){
-    res.render('register.ejs')
+    res.render('register.hbs')
 });
 
 router.post("/register", function(req, res){
