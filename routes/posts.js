@@ -1,4 +1,6 @@
 var express = require('express'),
+    // path = require('path'),
+    // fs = require('fs-extra'),
     router = express.Router(),
     Post = require('../models/post');
 //    middleware = require('../middleware');
@@ -24,8 +26,18 @@ router.post('/', function(req, res){
         username: req.user.username
     };
     var text = req.body.postText;
-
-    var newPost = {text:text, author:author, posted_at:Date.now(), likes_count:0};
+    var image = req.body.image;
+    // var imagePath = req.body.imagePath;
+    // var image = {
+    //     data: fs.readFileSync(imagePath),
+    //     contentType: 'image/png'
+    // };
+    //Image2
+    // var image = { 
+    //         data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.body.image)), 
+    //         contentType: 'image/png'
+    // };
+    var newPost = {text:text, author:author, posted_at:Date.now(), likes_count:0,image:image};
     Post.create(newPost, function(err,newlyCreated){       
         if(err){
             console.log(err);
@@ -35,6 +47,11 @@ router.post('/', function(req, res){
             res.redirect('/posts');
         }
     });
+});
+
+//NEW PAGE
+router.get('/new', (req, res, next) => {
+        res.render('new.hbs');
 });
 
 //SHOW PAGE
